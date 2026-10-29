@@ -2,7 +2,7 @@
 
 **GoreeCloud Android Toolkit** is the shared development foundation for my native GoreeCloud Android products. This public repository holds reusable Android/JVM libraries, Android-specific platform integrations, developer quality tools, and repeatable build checks. It is **not** an Android app, a replacement for Android's official SDK, or a substitute for [GoreeCloud UI](https://github.com/GoreeCloud/gc-ui), the ecosystem's experience authority.
 
-**Stage:** first working source foundation. The Java SDK core and Python tools have deterministic local tests; the Android AAR needs a successful full Gradle/Android SDK build, device integration tests, consuming-app validation, and a release decision before being called stable. No Maven publication, signed APK, or production runtime validation is asserted.
+**Stage:** early working source foundation. GitHub Actions has passed the Python tooling tests, Java SDK-core regression suite, and Android AAR Gradle build on the [latest verified source commit](https://github.com/GoreeCloud/android-toolkit/actions/runs/40801234100). Device integration tests, consuming-app validation, and formal release acceptance remain outstanding. No Maven publication, signed APK, or production runtime validation is asserted.
 
 ## What is included
 
@@ -12,7 +12,7 @@
 | `android-kit` | Native Android AAR source: app details settings Intent and bounded, app-private atomic file writes | Implemented source; Android build/runtime validation pending |
 | `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |
 | `tools/audit_tracked.py` | Git-tracked public-repository artifact and private-key-header checks | Implemented; offline tests |
-| `.github/workflows/verify.yml` | Python tests, tracked-file scan, JDK 17 core tests, AGP 9.4 Android AAR build | Configured; successful workflow run pending |
+| `.github/workflows/verify.yml` | Python tests, tracked-file scan, JDK 17 core tests, AGP 9.4 Android AAR build | Source-level and AAR checks passed in CI; device tests pending |
 
 ## Start developing
 

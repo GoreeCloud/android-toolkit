@@ -4,7 +4,7 @@ I intend the shared toolkit to reduce maintenance cost across my native Android 
 
 ## Next acceptance gates
 
-1. Pass a full AGP 9.4.0 / Gradle 9.6.0 Android library build and confirm CI jobs on the public repository; repair any configuration or API issues.
+1. Maintain passing AGP 9.4.0 / Gradle 9.6.0 source builds and CI checks on every relevant change; the initial Android library build succeeded in [CI run 40801234100](https://github.com/GoreeCloud/android-toolkit/actions/runs/40801234100). This does not establish device acceptance.
 2. Add instrumentation tests on Android 8/API 26 through a modern emulator for atomic file replacement, settings Intents and API compatibility; assess physical-device variants.
 3. Validate one deliberately small consumer integration (recommended: a self-contained helper in `GoreeCloud/drive`), with regression tests and no app ownership transfer.
 4. Establish an approved artifact publishing policy, dependency coordinates, SBOM/provenance checks and semver-compatible API lifecycle. No Maven release should be implied before these gates pass.
