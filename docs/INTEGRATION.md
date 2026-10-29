@@ -30,3 +30,34 @@ writer.write("preferences-export.json", serializedBytes) // Never put secrets he
 ```
 
 These examples illustrate source APIs; no cross-repository consumer adoption has been verified. Consumer-specific permission, data, and lifecycle validation is required before integrating.
+
+
+## How I intend to use the toolkit
+
+I intend to use GoreeCloud Android Toolkit as my shared Android engineering foundation. Reusable, independently testable code belongs here when several native applications benefit from it. Each application remains responsible for its own features, data, permissions, build, and release.
+
+### Planned consumers
+
+| Application | Intended adoption | Current status |
+| --- | --- | --- |
+| [GoreeCloud Drive](https://github.com/GoreeCloud/drive) | First integration pilot: consider HTTPS endpoint scoping, retry delay policy, checksums, and bounded local file utilities. Preserve the existing WebDAV security rules, app-token protection, and failure handling. | Proposed; no consumer integration verified |
+| [GoreeCloud Launcher](https://github.com/GoreeCloud/launcher) | Consider shared Android settings and local file helpers when reuse reduces duplication. Preserve home-role consent and workspace backup compatibility. | Conditional; no consumer integration verified |
+| [GoreeCloud Keyboard](https://github.com/GoreeCloud/keyboard) | Consider developer audits, APK inspection, testing utilities and narrow platform helpers. Preserve the attributed FlorisBoard engine and privacy boundaries. | Conditional; no consumer integration verified |
+| Future Android products | Adopt proven helpers after a specific need and compatibility evidence exist. | Planned |
+
+### Controlled adoption process
+
+1. Verify that the feature is genuinely shared rather than owned by an individual app, Android itself, or [GoreeCloud UI](https://github.com/GoreeCloud/gc-ui).
+2. Select the smallest useful module: `sdk-core` for Android-independent Java utilities or `android-kit` for Android-specific behavior.
+3. Integrate a reviewed revision with a verified local Gradle project dependency. The toolkit has no published stable Maven package yet.
+4. Test the toolkit and consuming app separately, including security boundaries, regression behavior, native Android compatibility and relevant device tests.
+5. Record the adopted revision, integration details and verification evidence in the consumer repository. Leave application releases and product behavior under each application's control.
+6. Introduce versioned package distribution only after API, supply-chain, reproducibility and consumer acceptance requirements have been met.
+
+### Reusable quality tools
+
+I will use the toolkit's offline APK structural inspector, tracked-file safety audit, Java core tests and Android AAR build checks to support Android engineering. These checks complement, but do not replace, each application's CI and runtime tests. The APK inspector is not a signing or device-compatibility validator. The toolkit produces shared libraries, not application APKs. Delivered app APKs must follow the governing standalone Google Drive artifact process.
+
+Later additions may include Gradle convention plugins, compatible network and file utilities, test fixtures, and accessibility QA tooling, but only after verified cross-product need. GC UI remains my exclusive design and experience authority; the toolkit will not create a competing design system.
+
+**Acceptance:** A consuming app adopts a scoped, reviewed toolkit API; appropriate toolkit and app tests pass; security and compatibility are preserved; and the integration is documented with verifiable evidence. None of the consumer integrations in this section is currently represented as complete.
