@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "goreecloud-android-toolkit"
-include(":sdk-core", ":android-kit")
+include(":sdk-core", ":android-kit", ":consumer-smoke")

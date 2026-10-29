@@ -40,5 +40,5 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '9.6.0'
-      - name: Compile SDK core and build Android library
-        run: gradle :sdk-core:verifyCore :android-kit:assembleDebug --no-daemon --stacktrace
+      - name: Verify Java core and compile Android AAR, instrumentation APK, and internal consumer
+        run: gradle :sdk-core:verifyCore :android-kit:assembleDebug :android-kit:assembleDebugAndroidTest :consumer-smoke:assembleDebug --no-daemon --stacktrace
