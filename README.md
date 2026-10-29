@@ -10,7 +10,7 @@
 | --- | --- | --- |
 | `sdk-core` | Dependency-free, Java 17 shared library for safe HTTPS endpoint scoping, bounded retry delays, path-safe single file names, and SHA-256 integrity helpers | Implemented; core self-tests |
 | `android-kit` | Native Android AAR source: app details settings Intent and bounded, app-private atomic file writes | Implemented source; Android build/runtime validation pending |
-| `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |
+| `consumer-smoke` | Non-shipping Android compile fixture proving `android-kit` and transitive `sdk-core` APIs can be referenced from an app module | Source committed; latest CI compilation awaiting readback |\n| `.github/workflows/android-device-tests.yml` | Two-emulator (API 26 and 35) instrumented storage and Settings Intent checks | Suite committed; emulator acceptance not yet verified |\n| `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |
 | `tools/audit_tracked.py` | Git-tracked public-repository artifact and private-key-header checks | Implemented; offline tests |
 | `.github/workflows/verify.yml` | Python tests, tracked-file scan, JDK 17 core tests, AGP 9.4 Android AAR build | Source-level and AAR checks passed in CI; device tests pending |
 
@@ -24,7 +24,7 @@ python3 -m unittest discover -s tests -v
 python3 tools/audit_tracked.py
 
 # Android SDK and pinned Gradle installation required:
-gradle :sdk-core:verifyCore :android-kit:assembleDebug
+gradle :sdk-core:verifyCore :android-kit:assembleDebugAndroidTest :consumer-smoke:assembleDebug
 
 # Inspect a test APK without uploading or installing it:
 python3 tools/apk_inspect.py /absolute/path/to/app-debug.apk
@@ -34,7 +34,7 @@ For `sdk-core`, the dependency-free Java self-test can also be run without Gradl
 
 ## Ownership and boundaries
 
-- **Toolkit** owns common Android engineering infrastructure only. Each app (`launcher`, `keyboard`, `drive`, etc.) retains its source, product logic, application identity, releases and runtime acceptance.
+- **Toolkit** owns common Android engineering infrastructure only. The `consumer-smoke` Android app module is a compile-time fixture, not a distributed GoreeCloud application. Each app (`launcher`, `keyboard`, `drive`, etc.) retains its source, product logic, application identity, releases and runtime acceptance.
 - **GC UI** owns shared design requirements and visual tokens. This repo does not create a competing design system.
 - **Android SDK / Jetpack** are external upstream platform components. This repo neither forks nor rebrands their implementations.
 - **Security:** opt in to filesystem writes, never store secrets with the plaintext writer, and do not commit credentials, certificates, local SDK paths or signing materials. The static audit is defense in depth, not a guarantee that all secrets are absent.
@@ -42,7 +42,7 @@ For `sdk-core`, the dependency-free Java self-test can also be run without Gradl
 
 ## Reference documentation
 
-[Development](docs/DEVELOPMENT.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY.md) · [Integration](docs/INTEGRATION.md) · [Roadmap](docs/ROADMAP.md)
+[Development](docs/DEVELOPMENT.md) · [Android device tests](docs/ANDROID-DEVICE-TESTS.md) · [Consumer fixture](docs/CONSUMER-SMOKE.md) · [Architecture](docs/ARCHITECTURE.md) · [Security](docs/SECURITY.md) · [Integration](docs/INTEGRATION.md) · [Roadmap](docs/ROADMAP.md)
 
 ## License
 
