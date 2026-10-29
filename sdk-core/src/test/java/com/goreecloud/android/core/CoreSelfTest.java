@@ -10,6 +10,9 @@ public final class CoreSelfTest {
     public static void main(String[] args) {
         TrustedEndpoint endpoint = TrustedEndpoint.parse("https://cloud.example.com/dav/spaces/space-1");
         equal("https://cloud.example.com/dav/spaces/space-1/", endpoint.uri().toString());
+        TrustedEndpoint encoded = TrustedEndpoint.parse("https://cloud.example.com/my%20space");
+        equal("https://cloud.example.com/my%20space/", encoded.uri().toString());
+        yes(encoded.contains(URI.create("https://cloud.example.com/my%20space/file.txt")));
         yes(endpoint.contains(URI.create("https://cloud.example.com/dav/spaces/space-1/folder?q=a")));
         yes(endpoint.contains(URI.create("https://cloud.example.com/dav/spaces/space-1")));
         no(endpoint.contains(URI.create("https://cloud.example.com/dav/spaces/space-10/file")));

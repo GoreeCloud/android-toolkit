@@ -31,12 +31,11 @@ public final class TrustedEndpoint {
         String path = uri.getRawPath();
         if (path == null || path.isEmpty()) path = "/";
         if (!path.endsWith("/")) path += "/";
-        try {
-            URI directory = new URI(uri.getScheme(), uri.getRawAuthority(), path, null, null);
-            return new TrustedEndpoint(directory, path);
-        } catch (URISyntaxException exception) {
-            throw new IllegalArgumentException("Invalid endpoint path", exception);
-        }
+        // The parsed ASCII URI already contains escaped path segments. Rebuilding it with
+        // URI's component constructor would escape '%' again (e.g. %20 -> %2520).
+        String ascii = uri.toASCIIString();
+        URI directory = URI.create(ascii + (ascii.endsWith("/") ? "" : "/"));
+        return new TrustedEndpoint(directory, path);
     }
 
     /** Allows resources at or below the base directory, never sibling paths or other origins. */
