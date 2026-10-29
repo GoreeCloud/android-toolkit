@@ -2,7 +2,7 @@
 
 **GoreeCloud Android Toolkit** is the shared development foundation for my native GoreeCloud Android products. This public repository holds reusable Android/JVM libraries, Android-specific platform integrations, developer quality tools, and repeatable build checks. It is **not** an Android app, a replacement for Android's official SDK, or a substitute for [GoreeCloud UI](https://github.com/GoreeCloud/gc-ui), the ecosystem's experience authority.
 
-**Stage:** early working source foundation. GitHub Actions has passed the Python tooling tests, Java SDK-core regression suite, and Android AAR Gradle build on the [latest verified source commit](https://github.com/GoreeCloud/android-toolkit/actions/runs/40801234100). Device integration tests, consuming-app validation, and formal release acceptance remain outstanding. No Maven publication, signed APK, or production runtime validation is asserted.
+**Stage:** early working source foundation. The [expanded SDK validation run](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885608) passed Python tooling tests, Java core checks, the Android AAR build, instrumented-test APK compilation, and a non-shipping Android consumer fixture build. Emulator-based tests are tracked separately; cross-repository app integration, physical-device validation, and release acceptance remain outstanding. No Maven publication, signed distribution APK, or production runtime validation is asserted.
 
 ## What is included
 
