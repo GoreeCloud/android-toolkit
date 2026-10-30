@@ -13,3 +13,7 @@ gradle -p examples/standalone-consumer :app:assembleDebug --no-daemon
 The application fixture has **no launcher activity**, **no Android permissions**, no credential storage, no networking or production behavior. The assembled APK exists for compiler and dependency-resolution checks only. **Do not deliver or install this fixture as a GoreeCloud application.**
 
 A successful build verifies local composite dependency resolution, compile-time visibility, and module API packaging at that revision. It does **not** verify a real external GoreeCloud app, binary release compatibility, Android runtime behavior, or SDK distribution. See [integration](../../docs/INTEGRATION.md) and [release policy](../../docs/RELEASE-POLICY.md).
+
+## Verified source-build evidence
+
+The [October 30, 2026 GitHub Actions run](https://github.com/GoreeCloud/android-toolkit/actions/runs/41138181732) completed successfully, including the standalone `gradle -p examples/standalone-consumer :app:assembleDebug` step. This demonstrates Gradle composite resolution across separate project roots. It does not demonstrate the production app lifecycle, physical runtime, signing or published artifact compatibility.

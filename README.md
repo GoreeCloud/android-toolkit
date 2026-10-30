@@ -2,7 +2,7 @@
 
 **GoreeCloud Android Toolkit** is the shared development foundation for my native GoreeCloud Android products. This public repository holds reusable Android/JVM libraries, Android-specific platform integrations, developer quality tools, and repeatable build checks. It is **not** an Android app, a replacement for Android's official SDK, or a substitute for [GoreeCloud UI](https://github.com/GoreeCloud/gc-ui), the ecosystem's experience authority.
 
-**Stage:** early working source foundation. The [expanded SDK validation run](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885608) passed Python tooling tests, Java core checks, the Android AAR build, instrumented-test APK compilation, and a non-shipping Android consumer fixture build. API 26 and API 35 emulator tests passed in [run 40802885548](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885548); cross-repository integration, additional physical-device/OEM validation, and release acceptance remain outstanding. The [single-device Android 16 test](docs/ANDROID-DEVICE-TESTS.md) passed with a documented local JDK toolchain workaround. No Maven publication, signed distribution APK, or production runtime validation is asserted.
+**Stage:** early working source foundation. The [expanded SDK validation run](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885608) passed Python tooling tests, Java core checks, the Android AAR build, instrumented-test APK compilation, and a non-shipping Android consumer fixture build. API 26 and API 35 emulator tests passed in [run 40802885548](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885548); real consumer-app integration, additional physical-device/OEM validation, and release acceptance remain outstanding. The [single-device Android 16 test](docs/ANDROID-DEVICE-TESTS.md) passed with a documented local JDK toolchain workaround. No Maven publication, signed distribution APK, or production runtime validation is asserted.
 
 ## What is included
 
@@ -10,6 +10,7 @@
 | --- | --- | --- |
 | `sdk-core` | Dependency-free, Java 17 shared library for safe HTTPS endpoint scoping, bounded retry delays, path-safe single file names, and SHA-256 integrity helpers | Implemented; core self-tests |
 | `android-kit` | Native Android AAR source: app details settings Intent and bounded, app-private atomic file writes | Implemented source; Android AAR, API 26/35 emulator and single API 36 handset tests passed; further devices pending |
+| `examples/standalone-consumer` | Separate Gradle root resolving Android/JVM public APIs using local composite substitution | [CI 41138181732](https://github.com/GoreeCloud/android-toolkit/actions/runs/41138181732) passed; not a real production-app adoption |
 | `consumer-smoke` | Non-shipping Android compile fixture proving `android-kit` and transitive `sdk-core` APIs can be referenced from an app module | Source committed; compilation verified by successful CI run 40803172919 |
 | `.github/workflows/android-device-tests.yml` | Two-emulator (API 26 and 35) instrumented storage and Settings Intent checks | Suite committed; API 26 and 35 emulator checks passed in run 40802885548 |
 | `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |

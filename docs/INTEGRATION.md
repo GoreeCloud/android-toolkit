@@ -12,7 +12,7 @@ This repository does not currently publish a binary or stable Maven coordinate. 
 
 An [independently configured Gradle consumer](../examples/standalone-consumer/README.md) demonstrates how a separate Android application project can resolve the toolkit via `includeBuild`, without falsely assuming that modules have been published to Maven. The example declares a source-only `com.goreecloud.android:android-kit:0.1.0-dev` module coordinate that is substituted locally by its included build. The public JVM `sdk-core` API is consumed transitively.
 
-It is a **compile fixture**, not a released Android app, an external repository adoption, or a published package. The standalone build and the toolkit internal consumer must both compile before this dependency-resolution approach can be called verified.
+It is a **compile fixture**, not a released Android app, an external repository adoption, or a published package. Both the independently configured Gradle consumer and toolkit's internal consumer compiled successfully in [Android Toolkit CI run 41138181732](https://github.com/GoreeCloud/android-toolkit/actions/runs/41138181732). This verifies local composite Gradle substitution and public class compilation at the tested revision, **not** adoption by an actual GoreeCloud app or binary SDK publication.
 
 ## Example calls
 
