@@ -44,3 +44,5 @@ jobs:
         run: gradle :sdk-core:verifyCore :sdk-core:jar :android-kit:assembleDebug :android-kit:assembleDebugAndroidTest :consumer-smoke:assembleDebug --no-daemon --stacktrace
       - name: Verify JAR and AAR public class packaging
         run: python tools/check_binaries.py --core sdk-core/build/libs/sdk-core-0.1.0-dev.jar --aar android-kit/build/outputs/aar/android-kit-debug.aar
+      - name: Compile independent Gradle composite consumer
+        run: gradle -p examples/standalone-consumer :app:assembleDebug --no-daemon --stacktrace

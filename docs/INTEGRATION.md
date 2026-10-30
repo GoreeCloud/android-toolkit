@@ -8,6 +8,12 @@ When app and toolkit are sibling projects, use a controlled include-build setup 
 
 This repository does not currently publish a binary or stable Maven coordinate. **Do not add `com.goreecloud.android:*` as an unverified public Maven dependency.**
 
+## Standalone composite-build consumer fixture
+
+An [independently configured Gradle consumer](../examples/standalone-consumer/README.md) demonstrates how a separate Android application project can resolve the toolkit via `includeBuild`, without falsely assuming that modules have been published to Maven. The example declares a source-only `com.goreecloud.android:android-kit:0.1.0-dev` module coordinate that is substituted locally by its included build. The public JVM `sdk-core` API is consumed transitively.
+
+It is a **compile fixture**, not a released Android app, an external repository adoption, or a published package. The standalone build and the toolkit internal consumer must both compile before this dependency-resolution approach can be called verified.
+
 ## Example calls
 
 ```kotlin
