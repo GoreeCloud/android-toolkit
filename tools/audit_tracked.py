@@ -4,12 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import subprocess
 from pathlib import Path
 
 FORBIDDEN_NAMES = {"local.properties", "google-services.json", ".env", "id_rsa", "id_ed25519"}
 FORBIDDEN_SUFFIXES = {".apk", ".aab", ".jks", ".keystore", ".p12", ".pfx", ".pem", ".key"}
-PRIVATE_KEY_HEADER = b"-----BEGIN " + b"PRIVATE KEY-----"
+PRIVATE_KEY_HEADER = re.compile(rb"-{5}BEGIN (?:[A-Z0-9]+ )*" + b"PRI" + b"VATE KEY-{5}")
 
 
 def audit(root: Path, paths: list[str]) -> list[dict[str, str]]:
@@ -28,7 +29,7 @@ def audit(root: Path, paths: list[str]) -> list[dict[str, str]]:
         if name in FORBIDDEN_NAMES or name.startswith(".env.") or path.suffix.lower() in FORBIDDEN_SUFFIXES:
             issues.append({"path": relative, "reason": "forbidden_public_artifact"})
             continue
-        if path.stat().st_size <= 2_000_000 and PRIVATE_KEY_HEADER in path.read_bytes():
+        if path.stat().st_size <= 2_000_000 and PRIVATE_KEY_HEADER.search(path.read_bytes()) is not None:
             issues.append({"path": relative, "reason": "embedded_private_key"})
     return issues
 
