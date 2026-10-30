@@ -2,17 +2,19 @@
 
 **GoreeCloud Android Toolkit** is the shared development foundation for my native GoreeCloud Android products. This public repository holds reusable Android/JVM libraries, Android-specific platform integrations, developer quality tools, and repeatable build checks. It is **not** an Android app, a replacement for Android's official SDK, or a substitute for [GoreeCloud UI](https://github.com/GoreeCloud/gc-ui), the ecosystem's experience authority.
 
-**Stage:** early working source foundation. The [expanded SDK validation run](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885608) passed Python tooling tests, Java core checks, the Android AAR build, instrumented-test APK compilation, and a non-shipping Android consumer fixture build. Emulator-based tests are tracked separately; cross-repository app integration, physical-device validation, and release acceptance remain outstanding. No Maven publication, signed distribution APK, or production runtime validation is asserted.
+**Stage:** early working source foundation. The [expanded SDK validation run](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885608) passed Python tooling tests, Java core checks, the Android AAR build, instrumented-test APK compilation, and a non-shipping Android consumer fixture build. API 26 and API 35 emulator tests passed in [run 40802885548](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885548); cross-repository app integration, physical-device validation, and release acceptance remain outstanding. No Maven publication, signed distribution APK, or production runtime validation is asserted.
 
 ## What is included
 
 | Component | Purpose | Status |
 | --- | --- | --- |
 | `sdk-core` | Dependency-free, Java 17 shared library for safe HTTPS endpoint scoping, bounded retry delays, path-safe single file names, and SHA-256 integrity helpers | Implemented; core self-tests |
-| `android-kit` | Native Android AAR source: app details settings Intent and bounded, app-private atomic file writes | Implemented source; Android build/runtime validation pending |
-| `consumer-smoke` | Non-shipping Android compile fixture proving `android-kit` and transitive `sdk-core` APIs can be referenced from an app module | Source committed; latest CI compilation awaiting readback |\n| `.github/workflows/android-device-tests.yml` | Two-emulator (API 26 and 35) instrumented storage and Settings Intent checks | Suite committed; emulator acceptance not yet verified |\n| `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |
+| `android-kit` | Native Android AAR source: app details settings Intent and bounded, app-private atomic file writes | Implemented source; Android AAR build and scoped emulator tests passed; physical devices pending |
+| `consumer-smoke` | Non-shipping Android compile fixture proving `android-kit` and transitive `sdk-core` APIs can be referenced from an app module | Source committed; compilation verified by successful CI run 40803172919 |
+| `.github/workflows/android-device-tests.yml` | Two-emulator (API 26 and 35) instrumented storage and Settings Intent checks | Suite committed; API 26 and 35 emulator checks passed in run 40802885548 |
+| `tools/apk_inspect.py` | Offline APK ZIP structure, SHA-256 and dangerous-entry checks; clearly not signature/package/device verification | Implemented; synthetic tests |
 | `tools/audit_tracked.py` | Git-tracked public-repository artifact and private-key-header checks | Implemented; offline tests |
-| `.github/workflows/verify.yml` | Python tests, tracked-file scan, JDK 17 core tests, AGP 9.4 Android AAR build | Source-level and AAR checks passed in CI; device tests pending |
+| `.github/workflows/verify.yml` | Python tests, tracked-file scan, JDK 17 core tests, AGP 9.4 Android AAR build | Source-level and AAR checks passed in CI; API 26/35 emulator checks passed; physical-device tests pending |
 
 ## Start developing
 
