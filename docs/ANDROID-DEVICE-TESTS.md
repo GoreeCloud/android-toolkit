@@ -20,7 +20,7 @@ With JDK 17, Gradle 9.6.0, Android SDK platform 36 and an available Android emul
 - Build test APK: `gradle :android-kit:assembleDebugAndroidTest`
 - Run on a connected emulator: `gradle :android-kit:connectedDebugAndroidTest --no-daemon`
 
-The Android device compatibility GitHub Actions workflow runs the API 26 and API 35 matrix for affected changes and allows manual dispatch. A workflow committed to source is not proof that either emulator test has passed.
+The [Android device compatibility workflow](https://github.com/GoreeCloud/android-toolkit/actions/runs/40802885548) executed instrumented tests on API 26 and API 35 emulators successfully on October 29, 2026 UTC. Both jobs completed successfully. This is emulator runtime evidence, not physical-device acceptance.
 
 ## Acceptance boundaries
 
