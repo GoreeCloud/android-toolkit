@@ -26,7 +26,7 @@ The standalone test above checks the same Java implementation the Android librar
 Use JDK 17, Gradle 9.6.0, Android SDK 36, and Build Tools 36.0.0:
 
 ```sh
-gradle :sdk-core:verifyCore :android-kit:assembleDebug :android-kit:assembleDebugAndroidTest :consumer-smoke:assembleDebug --no-daemon
+gradle :sdk-core:verifyCore :sdk-core:jar :android-kit:assembleDebug :android-kit:assembleDebugAndroidTest :consumer-smoke:assembleDebug --no-daemon
 ```
 
 AGP 9.4.0 includes built-in Kotlin; do **not** apply `org.jetbrains.kotlin.android` separately to `android-kit`. The `sdk-core` module uses the Java library plugin and can be consumed from Kotlin or Java.
@@ -42,3 +42,13 @@ AGP 9.4.0 includes built-in Kotlin; do **not** apply `org.jetbrains.kotlin.andro
 ## Android device and consumer contract tests
 
 The [Android emulator tests](ANDROID-DEVICE-TESTS.md) exercise platform-specific storage and Settings intents at API 26 and API 35 when their GitHub Actions jobs complete successfully. The [non-shipping consumer fixture](CONSUMER-SMOKE.md) compiles `android-kit` and its transitive `sdk-core` APIs from a minimal application module. Build success is narrower than emulator or physical-device runtime acceptance; do not deliver the consumer fixture as an app APK.
+
+## Public API packaging smoke checks
+
+The [offline binary inspector](../tools/check_binaries.py) checks the actual built Java JAR and Android AAR for the intended public class files, a manifest, nested `classes.jar`, readable ZIP integrity, and reports SHA-256 checksums. Run after building:
+
+```sh
+python3 tools/check_binaries.py --core sdk-core/build/libs/sdk-core-0.1.0-dev.jar --aar android-kit/build/outputs/aar/android-kit-debug.aar
+```
+
+This check does not establish binary compatibility with previous versions, SDK publication, class behavior, signing, or physical-device acceptance. It does provide a reproducible regression signal for accidentally omitted public classes.
