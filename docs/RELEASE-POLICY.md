@@ -24,7 +24,7 @@ As GoreeCloud founder, I require the Android Toolkit to remain a shared native-d
 - CI: Python tooling suite, tracked-file security audit, JVM core checks, Android AAR build and internal consumer compile checks all succeed on the candidate commit.
 - Native runtime: instrumentation succeeds on API 26 and API 35. Additional Android versions and physical devices are independent acceptance tasks.
 - Packaging: inspect built AAR/JAR metadata, verify transitive dependency resolution from an independently configured consumer, validate artifact hashes, and document source provenance/licensing.
-- Security: independent code review of sensitive APIs, negative tests, dependency/license review, no signing keys or secrets in public Git history, safe publication permissions, and a recovery/rollback procedure.
+- Security: maintainer-led review of sensitive APIs, negative tests, dependency/license review, no signing keys or secrets in public Git history, safe publication permissions, and a recovery/rollback procedure.
 - Consumer pilot: one real GoreeCloud Android app integrates a specific reviewed helper, retains its own security policy, passes its targeted tests, and documents a rollback.
 - Release: an authorized tag and distribution destination must be decided, generated files checked against the intended source commit, and any checksums/attestations verified.
 - **Do not publish an SDK as Stable while physical-device and consumer acceptance remain outstanding.**
