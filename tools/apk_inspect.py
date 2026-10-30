@@ -5,8 +5,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import stat
 import zipfile
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 
 MAX_ARCHIVE_BYTES = 300 * 1024 * 1024
 MAX_UNCOMPRESSED_BYTES = 750 * 1024 * 1024
@@ -30,10 +31,18 @@ def inspect(path: Path) -> dict[str, object]:
         total = 0
         for entry in files:
             name = entry.filename
-            if (not name or name.startswith("/") or "\\" in name or
-                    ".." in PurePosixPath(name).parts or
-                    PurePosixPath(name).is_absolute()):
+            segments = (name[:-1] if name.endswith("/") else name).split("/")
+            if (not name or name.startswith("/") or "\\" in name
+                    or any(part in ("", ".", "..") for part in segments)
+                    or any(ord(char) < 32 or ord(char) == 127 for char in name)
+                    or (len(name) >= 2 and name[0].isascii()
+                        and name[0].isalpha() and name[1] == ":")):
                 raise ValueError("Unsafe archive entry path")
+            mode = stat.S_IFMT(entry.external_attr >> 16) if entry.create_system == 3 else 0
+            if mode not in (0, stat.S_IFREG, stat.S_IFDIR):
+                raise ValueError("Unsupported special-file APK entry")
+            if mode == stat.S_IFDIR and not entry.is_dir():
+                raise ValueError("Directory entry missing trailing slash")
             if name in names:
                 raise ValueError("Duplicate archive entry")
             names.add(name)
